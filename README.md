@@ -2,7 +2,7 @@
 
 This project demonstrates how to create a **VPC Peering connection within the same AWS region** and enable **private communication between EC2 instances across different VPCs**.
 
-![Architecture Diagram](Images/Infra.png)
+![Architecture Diagram](https://github.com/Emaan-Chaudhary/aws-same-region-vpc-peering/blob/main/images/infra.png?raw=true.png)
 
 ---
 
@@ -50,7 +50,7 @@ This project demonstrates how to create a **VPC Peering connection within the sa
 Inbound Security Group Rules:
 - SSH (22) — *restricted in real environments*
 - ICMP — for testing connectivity
-
+![Architecture Diagram](https://github.com/Emaan-Chaudhary/aws-same-region-vpc-peering/blob/main/images/vpc1a.png?raw=true.png)
 ---
 
 ### 2️⃣ Create VPC-1B
@@ -64,7 +64,7 @@ Inbound Security Group Rules:
 Inbound Security Group Rules:
 - SSH (22)
 - ICMP
-
+![Architecture Diagram](https://github.com/Emaan-Chaudhary/aws-same-region-vpc-peering/blob/main/images/vpc1b.png?raw=true.png)
 ---
 
 ### 3️⃣ Launch EC2 Instances in VPC-1A
@@ -73,18 +73,18 @@ Inbound Security Group Rules:
 - Subnet: Public
 - Public IP: Enabled
 - Purpose: Bastion / testing access
-
+![Architecture Diagram](https://github.com/Emaan-Chaudhary/aws-same-region-vpc-peering/blob/main/images/jum-ec2.png?raw=true.png)
 **Private EC2**
 - Subnet: Private
 - Public IP: Disabled
-
+![Architecture Diagram](https://github.com/Emaan-Chaudhary/aws-same-region-vpc-peering/blob/main/images/private-ec2-1A.png?raw=true.png)
 ---
 
 ### 4️⃣ Launch EC2 Instance in VPC-1B
 
 - Subnet: Private
 - Public IP: Disabled
-
+![Architecture Diagram](https://github.com/Emaan-Chaudhary/aws-same-region-vpc-peering/blob/main/images/private-ec2-1B.png?raw=true.png)
 ---
 
 ### 5️⃣ Connectivity Test (Before Peering)
@@ -92,7 +92,7 @@ Inbound Security Group Rules:
 From `Jump-Server-1a`:
 - Ping `Private-EC2-1a` ✅
 - Ping `Private-EC2-1b` ❌ (Expected – no routing)
-
+![Architecture Diagram](https://github.com/Emaan-Chaudhary/aws-same-region-vpc-peering/blob/main/images/packet-loss.png?raw=true.png)
 ---
 
 ### 6️⃣ Create VPC Peering Connection
@@ -101,7 +101,7 @@ From `Jump-Server-1a`:
 - Accepter VPC: `VPC-1B`
 - Region: Same (`us-east-1`)
 - Accept the peering request
-
+![Architecture Diagram](https://github.com/Emaan-Chaudhary/aws-same-region-vpc-peering/blob/main/images/vpc-peering.png?raw=true.png)
 ---
 
 ### 7️⃣ Update Route Tables
@@ -110,7 +110,7 @@ From `Jump-Server-1a`:
 **VPC-1A Private Route Table**
 Destination: 192.168.0.0/16
 Target: VPC Peering Connection
-
+![Architecture Diagram](https://github.com/Emaan-Chaudhary/aws-same-region-vpc-peering/blob/main/images/rt.png?raw=true.png)
 
 **VPC-1B Private Route Table**
 Destination: 10.75.0.0/16
@@ -123,7 +123,7 @@ Target: VPC Peering Connection
 
 - Ping from `Private-EC2-1a` → `Private-EC2-1b` ✅
 - Ping successful confirms **VPC Peering is working**
-
+![Architecture Diagram](https://github.com/Emaan-Chaudhary/aws-same-region-vpc-peering/blob/main/images/result.png?raw=true.png)
 ---
 
 ## ✅ Result
